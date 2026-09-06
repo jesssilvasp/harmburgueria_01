@@ -1,37 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 
-function unauthorized() {
-  return new NextResponse("Acesso restrito.", {
-    status: 401,
-    headers: {
-      "WWW-Authenticate": 'Basic realm="Burger SaaS Admin"',
-    },
-  });
+async function createSessionToken(username: string, password: string) {
+  const data = new TextEncoder().encode(`${username}:${password}`);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
 }
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname === "/admin/login") {
+    return NextResponse.next();
+  }
+
   const username = process.env.ADMIN_USERNAME;
   const password = process.env.ADMIN_PASSWORD;
 
   if (!username || !password) {
-    return new NextResponse("Credenciais administrativas não configuradas.", {
-      status: 503,
-    });
+    return NextResponse.redirect(new URL("/admin/login?error=setup", request.url));
   }
 
-  const authorization = request.headers.get("authorization");
-  if (!authorization?.startsWith("Basic ")) {
-    return unauthorized();
-  }
-
-  const encodedCredentials = authorization.slice("Basic ".length);
-  const credentials = atob(encodedCredentials);
-  const separatorIndex = credentials.indexOf(":");
-  const providedUsername = credentials.slice(0, separatorIndex);
-  const providedPassword = credentials.slice(separatorIndex + 1);
-
-  if (providedUsername !== username || providedPassword !== password) {
-    return unauthorized();
+  const expectedToken = await createSessionToken(username, password);
+  if (request.cookies.get("admin_session")?.value !== expectedToken) {
+    const loginUrl = new URL("/admin/login", request.url);
+    loginUrl.searchParams.set("next", request.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
