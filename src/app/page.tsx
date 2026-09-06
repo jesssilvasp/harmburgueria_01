@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import MobileShell from "@/components/MobileShell";
 import ProductImage from "@/components/ProductImage";
 import ProductModal from "@/components/ProductModal";
@@ -59,19 +58,6 @@ export default function HomePage() {
               </span>
             </div>
           </div>
-          <Link
-            href="/admin"
-            className="h-9 px-3 rounded-lg bg-[#191c1f] border border-[#292d31] text-[11px] text-neutral-400 hover:text-white flex items-center gap-1"
-          >
-            <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
-              <path
-                d="M12 2 3 7v6c0 5 4 8.5 9 9 5-.5 9-4 9-9V7l-9-5Z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              />
-            </svg>
-            Admin
-          </Link>
         </div>
 
         <div className="mt-5 grid grid-cols-3 gap-2 text-center lg:grid-cols-3 lg:max-w-2xl">

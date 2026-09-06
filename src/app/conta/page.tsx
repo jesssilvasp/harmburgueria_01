@@ -44,7 +44,6 @@ export default function ContaPage() {
         <MenuItem icon="🎟️" label="Meus cupons" href="#" comingSoon />
         <MenuItem icon="❤️" label="Favoritos" href="#" comingSoon />
         <MenuItem icon="🔔" label="Notificações" href="#" comingSoon />
-        <MenuItem icon="🛡️" label="Admin da loja" href="/admin" />
 
         <div className="card p-4 mt-2">
           <h3 className="text-xs font-bold text-white uppercase tracking-wide mb-2">
