@@ -6,6 +6,7 @@ import { useState } from "react";
 import MobileShell from "@/components/MobileShell";
 import ProductImage from "@/components/ProductImage";
 import { useCart } from "@/lib/cart-context";
+import { productImages } from "@/lib/product-images";
 import { currentStore, formatBRL } from "@/lib/store-config";
 
 export default function CarrinhoPage() {
@@ -88,6 +89,7 @@ export default function CarrinhoPage() {
                 <ProductImage
                   emoji={it.emoji}
                   gradient={it.gradient}
+                  imageUrl={productImages[it.productId]}
                   size="sm"
                   className="h-20 w-20 flex-shrink-0"
                 />

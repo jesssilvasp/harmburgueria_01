@@ -5,6 +5,7 @@ import MobileShell from "@/components/MobileShell";
 import ProductImage from "@/components/ProductImage";
 import ProductModal from "@/components/ProductModal";
 import { products } from "@/lib/mock-data";
+import { productImages } from "@/lib/product-images";
 import { formatBRL } from "@/lib/store-config";
 import type { Product } from "@/lib/types";
 
@@ -88,7 +89,12 @@ export default function BuscarPage() {
                 onClick={() => setOpenProduct(p)}
                 className="w-full card p-3 flex gap-3 text-left hover:border-orange-500/50 transition"
               >
-                <ProductImage emoji={p.emoji} gradient={p.gradient} size="sm" />
+                <ProductImage
+                  emoji={p.emoji}
+                  gradient={p.gradient}
+                  imageUrl={productImages[p.id]}
+                  size="sm"
+                />
                 <div className="flex-1 min-w-0">
                   <h4 className="text-sm font-bold text-white truncate">
                     {p.name}

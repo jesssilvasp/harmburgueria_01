@@ -6,18 +6,9 @@ import MobileShell from "@/components/MobileShell";
 import ProductImage from "@/components/ProductImage";
 import ProductModal from "@/components/ProductModal";
 import { categories, products } from "@/lib/mock-data";
+import { productImages } from "@/lib/product-images";
 import { currentStore, formatBRL } from "@/lib/store-config";
 import type { CategoryId, Product } from "@/lib/types";
-
-const visualImages: Record<string, string> = {
-  "p-xbacon": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85",
-  "p-cheddar": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=85",
-  "p-smash": "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=900&q=85",
-  "p-combo-turbo": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=900&q=85",
-  "p-combo-classic": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85",
-  "p-batata-g": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85",
-  "p-coca": "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85",
-};
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState<CategoryId | "all">("all");
@@ -116,7 +107,7 @@ export default function HomePage() {
 
       <section className="relative mx-4 mt-4 min-h-[300px] overflow-hidden rounded-xl border border-[#4b3423] bg-[#1c1008] lg:mx-8 lg:min-h-[360px]">
         <img
-          src={visualImages["p-xbacon"]}
+          src={productImages["p-xbacon"]}
           alt="Hambúrguer artesanal da Burger House"
           className="absolute inset-0 h-full w-full object-cover opacity-70"
         />
@@ -165,7 +156,7 @@ export default function HomePage() {
               </div>
             </div>
             <img
-              src={visualImages["p-combo-turbo"]}
+              src={productImages["p-combo-turbo"]}
               alt="Combo Turbinado"
               className="h-28 w-40 rounded-lg object-cover drop-shadow-lg lg:h-36 lg:w-56"
             />
@@ -220,7 +211,7 @@ export default function HomePage() {
                 <ProductImage
                   emoji={p.emoji}
                   gradient={p.gradient}
-                  imageUrl={visualImages[p.id]}
+                  imageUrl={productImages[p.id]}
                   size="md"
                   className="h-32 w-full"
                 />
@@ -280,7 +271,7 @@ export default function HomePage() {
                 <ProductImage
                   emoji={p.emoji}
                   gradient={p.gradient}
-                  imageUrl={visualImages[p.id]}
+                  imageUrl={productImages[p.id]}
                   size="sm"
                   className="flex-shrink-0"
                 />

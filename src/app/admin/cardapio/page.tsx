@@ -4,6 +4,7 @@ import { useState } from "react";
 import AdminShell from "@/components/AdminShell";
 import ProductImage from "@/components/ProductImage";
 import { categories, products as initialProducts } from "@/lib/mock-data";
+import { productImages } from "@/lib/product-images";
 import { formatBRL } from "@/lib/store-config";
 import type { Product } from "@/lib/types";
 
@@ -75,6 +76,7 @@ export default function AdminCardapioPage() {
                       <ProductImage
                         emoji={p.emoji}
                         gradient={p.gradient}
+                        imageUrl={productImages[p.id]}
                         size="sm"
                         className="h-12 w-12"
                       />

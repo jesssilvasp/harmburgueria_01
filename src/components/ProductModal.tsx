@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Product, CartItem, CartAddon } from "@/lib/types";
 import { useCart } from "@/lib/cart-context";
 import { formatBRL } from "@/lib/store-config";
+import { productImages } from "@/lib/product-images";
 import ProductImage from "./ProductImage";
 
 type Props = {
@@ -99,6 +100,7 @@ export default function ProductModal({ product, onClose }: Props) {
           <ProductImage
             emoji={product.emoji}
             gradient={product.gradient}
+            imageUrl={productImages[product.id]}
             size="xl"
             className="rounded-none rounded-t-3xl sm:rounded-t-3xl"
           />

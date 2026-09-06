@@ -3,6 +3,7 @@
 import AdminShell from "@/components/AdminShell";
 import ProductImage from "@/components/ProductImage";
 import { products } from "@/lib/mock-data";
+import { productImages } from "@/lib/product-images";
 import { formatBRL } from "@/lib/store-config";
 
 export default function AdminPromocoesPage() {
@@ -28,6 +29,7 @@ export default function AdminPromocoesPage() {
                 <ProductImage
                   emoji={p.emoji}
                   gradient={p.gradient}
+                  imageUrl={productImages[p.id]}
                   size="lg"
                   className="rounded-none h-40"
                 />
