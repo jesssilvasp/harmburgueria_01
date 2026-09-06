@@ -31,19 +31,24 @@ export default function AdminShell({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b] flex text-white">
+    <div className="min-h-screen bg-[#08090a] flex text-white">
       {/* Sidebar */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-[#141416] border-r border-[#26262b] flex flex-col transition-transform ${
+        className={`fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-[#111315] border-r border-[#292d31] flex flex-col transition-transform ${
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div className="p-4 border-b border-[#26262b] flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-xl">
+          <div className="h-10 w-10 rounded-lg btn-primary flex items-center justify-center text-xl">
             {currentStore.logoEmoji}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-bold truncate">{currentStore.name}</div>
+            <div className="brand-wordmark text-sm font-black truncate">
+              Burger <strong>SaaS</strong>
+            </div>
+            <div className="text-[10px] text-neutral-500 truncate">
+              {currentStore.name} delivery
+            </div>
             <div className="text-[10px] text-emerald-400 font-semibold">
               ● Aberto
             </div>
@@ -97,7 +102,7 @@ export default function AdminShell({
 
       {/* Main */}
       <div className="flex-1 min-w-0 flex flex-col">
-        <header className="sticky top-0 z-20 bg-[#0a0a0b]/95 backdrop-blur border-b border-[#26262b] px-4 lg:px-6 h-16 flex items-center gap-3">
+        <header className="sticky top-0 z-20 bg-[#08090a]/95 backdrop-blur border-b border-[#292d31] px-4 lg:px-6 h-16 flex items-center gap-3">
           <button
             className="lg:hidden h-9 w-9 rounded-lg bg-[#1c1c1f] border border-[#26262b] flex items-center justify-center"
             onClick={() => setMobileOpen(true)}
@@ -119,7 +124,7 @@ export default function AdminShell({
             <span className="h-4 w-px bg-[#26262b]" />
             <span>{new Date().toLocaleDateString("pt-BR")}</span>
           </div>
-          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-sm font-bold text-black">
+          <div className="h-9 w-9 rounded-full btn-primary flex items-center justify-center text-sm font-bold text-black">
             A
           </div>
         </header>

@@ -39,9 +39,12 @@ export default function HomePage() {
             {currentStore.logoEmoji}
           </div>
           <div className="flex-1">
-            <h1 className="text-lg font-bold text-white leading-tight">
-              {currentStore.name}
+            <h1 className="brand-wordmark text-lg font-black text-white leading-tight">
+              Burger <strong>SaaS</strong>
             </h1>
+            <div className="text-[10px] text-neutral-500 font-medium">
+              {currentStore.name} • DELIVERY
+            </div>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-pulseDot absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
