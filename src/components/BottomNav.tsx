@@ -43,7 +43,7 @@ export default function BottomNav() {
         className="fixed bottom-0 left-0 right-0 z-30 bg-[#0a0a0b]/95 backdrop-blur border-t border-[#26262b]"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
-        <div className="mx-auto max-w-md">
+        <div className="mx-auto w-full max-w-6xl">
           <div className="grid grid-cols-4">
             {items.map((it) => {
               const active =
