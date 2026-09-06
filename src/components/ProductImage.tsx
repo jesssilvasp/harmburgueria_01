@@ -1,6 +1,7 @@
 type Props = {
   emoji: string;
   gradient: string;
+  imageUrl?: string;
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
 };
@@ -15,6 +16,7 @@ const sizes = {
 export default function ProductImage({
   emoji,
   gradient,
+  imageUrl,
   size = "md",
   className = "",
 }: Props) {
@@ -40,12 +42,21 @@ export default function ProductImage({
         }}
       />
       <div className="absolute inset-0 flex items-center justify-center">
-        <span
-          className={`${s.emoji} drop-shadow-2xl`}
-          style={{ filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.5))" }}
-        >
-          {emoji}
-        </span>
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt=""
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <span
+            className={`${s.emoji} drop-shadow-2xl`}
+            style={{ filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.5))" }}
+          >
+            {emoji}
+          </span>
+        )}
       </div>
     </div>
   );

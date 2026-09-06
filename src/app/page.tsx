@@ -9,6 +9,16 @@ import { categories, products } from "@/lib/mock-data";
 import { currentStore, formatBRL } from "@/lib/store-config";
 import type { CategoryId, Product } from "@/lib/types";
 
+const visualImages: Record<string, string> = {
+  "p-xbacon": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85",
+  "p-cheddar": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=85",
+  "p-smash": "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=900&q=85",
+  "p-combo-turbo": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=900&q=85",
+  "p-combo-classic": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85",
+  "p-batata-g": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85",
+  "p-coca": "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85",
+};
+
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState<CategoryId | "all">("all");
   const [search, setSearch] = useState("");
@@ -28,14 +38,17 @@ export default function HomePage() {
     });
   }, [activeCategory, search]);
 
-  const featured = useMemo(() => products.filter((p) => p.featured), []);
+  const featured = useMemo(
+    () => products.filter((p) => p.featured || p.id === "p-smash").slice(0, 4),
+    [],
+  );
 
   return (
     <MobileShell>
       {/* Header */}
-      <header className="px-4 pt-6 pb-4 bg-gradient-to-b from-[#1c1c1f] to-[#0a0a0b]">
+      <header className="border-b border-[#292d31] bg-[#08090a] px-4 pb-5 pt-5 lg:px-8">
         <div className="flex items-center gap-3">
-          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-2xl shadow-lg">
+          <div className="h-12 w-12 rounded-xl btn-primary flex items-center justify-center text-2xl shadow-lg">
             {currentStore.logoEmoji}
           </div>
           <div className="flex-1">
@@ -57,7 +70,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/admin"
-            className="h-9 px-3 rounded-full bg-[#1c1c1f] border border-[#26262b] text-[11px] text-neutral-400 hover:text-white flex items-center gap-1"
+            className="h-9 px-3 rounded-lg bg-[#191c1f] border border-[#292d31] text-[11px] text-neutral-400 hover:text-white flex items-center gap-1"
           >
             <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
               <path
@@ -70,14 +83,14 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+        <div className="mt-5 grid grid-cols-3 gap-2 text-center lg:grid-cols-3 lg:max-w-2xl">
           <InfoPill label="Entrega" value={`${currentStore.deliveryTimeMin}-${currentStore.deliveryTimeMax} min`} />
           <InfoPill label="Taxa" value={formatBRL(currentStore.deliveryFee)} />
           <InfoPill label="Pedido mín." value={formatBRL(currentStore.minOrder)} />
         </div>
 
         {/* Search */}
-        <div className="mt-4 relative">
+        <div className="mt-5 relative">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -96,14 +109,38 @@ export default function HomePage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Buscar no cardápio..."
-            className="w-full bg-[#1c1c1f] border border-[#26262b] rounded-full pl-11 pr-4 h-12 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-orange-500 transition"
+            className="w-full bg-[#191c1f] border border-[#292d31] rounded-lg pl-11 pr-4 h-12 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-orange-500 transition"
           />
         </div>
       </header>
 
+      <section className="relative mx-4 mt-4 min-h-[300px] overflow-hidden rounded-xl border border-[#4b3423] bg-[#1c1008] lg:mx-8 lg:min-h-[360px]">
+        <img
+          src={visualImages["p-xbacon"]}
+          alt="Hambúrguer artesanal da Burger House"
+          className="absolute inset-0 h-full w-full object-cover opacity-70"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-[#090909]/80 to-transparent" />
+        <div className="relative flex min-h-[300px] max-w-xl flex-col justify-center p-6 lg:min-h-[360px] lg:p-12">
+          <span className="eyebrow">Hambúrguer de verdade</span>
+          <h2 className="mt-3 max-w-md text-4xl font-black uppercase leading-[0.92] text-white lg:text-6xl">
+            Mais sabor <span className="text-orange-400">no seu dia</span>
+          </h2>
+          <p className="mt-4 max-w-sm text-sm text-neutral-300 lg:text-base">
+            Ingredientes selecionados, preparados com muito mais que sabor.
+          </p>
+          <button
+            onClick={() => setActiveCategory("all")}
+            className="btn-primary mt-6 flex h-11 w-fit items-center gap-6 rounded-lg px-5 text-sm uppercase"
+          >
+            Fazer meu pedido <span className="text-lg">→</span>
+          </button>
+        </div>
+      </section>
+
       {/* Promo banner */}
-      <section className="px-4 pt-2">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 p-5 shadow-lg">
+      <section className="px-4 pt-4 lg:px-8">
+        <div className="relative overflow-hidden rounded-xl border border-[#5b3a1e] bg-gradient-to-r from-[#351708] via-[#8d360c] to-[#17110b] p-5 shadow-lg lg:p-7">
           <div
             className="absolute inset-0 opacity-30"
             style={{
@@ -111,7 +148,7 @@ export default function HomePage() {
                 "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.5), transparent 50%)",
             }}
           />
-          <div className="relative flex items-center gap-4">
+          <div className="relative flex items-center gap-4 lg:min-h-28">
             <div className="flex-1">
               <div className="inline-block bg-black/40 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
                 Promoção
@@ -123,11 +160,15 @@ export default function HomePage() {
                 Burger + Batata + Refrigerante
               </p>
               <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-2xl font-black text-white">R$ 34,90</span>
+                <span className="text-2xl font-black text-orange-300">R$ 34,90</span>
                 <span className="text-xs text-white/70 line-through">R$ 42,90</span>
               </div>
             </div>
-            <div className="text-7xl drop-shadow-lg">🍔</div>
+            <img
+              src={visualImages["p-combo-turbo"]}
+              alt="Combo Turbinado"
+              className="h-28 w-40 rounded-lg object-cover drop-shadow-lg lg:h-36 lg:w-56"
+            />
           </div>
         </div>
       </section>
@@ -139,7 +180,7 @@ export default function HomePage() {
             Categorias
           </h3>
         </div>
-        <div className="mt-3 flex gap-2 overflow-x-auto no-scrollbar px-4 pb-2">
+        <div className="mt-3 flex gap-3 overflow-x-auto no-scrollbar px-4 pb-2 lg:px-8">
           <CategoryChip
             emoji="✨"
             label="Todos"
@@ -169,18 +210,19 @@ export default function HomePage() {
               🔥 Mais pedidos
             </span>
           </div>
-          <div className="mt-3 flex gap-3 overflow-x-auto no-scrollbar px-4 pb-2">
+          <div className="mt-3 grid grid-cols-2 gap-3 px-4 pb-2 md:grid-cols-4 lg:px-8">
             {featured.map((p) => (
               <button
                 key={p.id}
                 onClick={() => setOpenProduct(p)}
-                className="min-w-[180px] card p-3 text-left hover:border-orange-500/50 transition"
+                className="card p-3 text-left hover:border-orange-500/50 transition"
               >
                 <ProductImage
                   emoji={p.emoji}
                   gradient={p.gradient}
+                  imageUrl={visualImages[p.id]}
                   size="md"
-                  className="w-full h-32"
+                  className="h-32 w-full"
                 />
                 <div className="mt-3">
                   <h4 className="text-sm font-bold text-white line-clamp-1">
@@ -223,7 +265,7 @@ export default function HomePage() {
             </p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-3 lg:space-y-0">
             {filtered.map((p) => (
               <button
                 key={p.id}
@@ -238,6 +280,7 @@ export default function HomePage() {
                 <ProductImage
                   emoji={p.emoji}
                   gradient={p.gradient}
+                  imageUrl={visualImages[p.id]}
                   size="sm"
                   className="flex-shrink-0"
                 />
@@ -317,9 +360,9 @@ function CategoryChip({
     <button
       onClick={onClick}
       className={`flex-shrink-0 flex items-center gap-2 h-11 px-4 rounded-full border transition ${
-        active
-          ? "bg-gradient-to-r from-orange-500 to-amber-500 border-orange-500 text-black"
-          : "bg-[#1c1c1f] border-[#26262b] text-white hover:border-orange-500/50"
+          active
+          ? "bg-gradient-to-r from-orange-500 to-amber-500 border-orange-500 text-black shadow-lg shadow-orange-500/20"
+          : "bg-[#191c1f] border-[#292d31] text-white hover:border-orange-500/50"
       }`}
     >
       <span className="text-lg">{emoji}</span>
